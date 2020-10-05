@@ -303,9 +303,7 @@ void SSD1306_Clear (void);
 
 void SSD1306_ShowBitmap(const unsigned char[]);
 
-void SSD1306_Show12FrameGif(const unsigned char[], const unsigned char[], const unsigned char[], const unsigned char[], const unsigned char[],
-					 const unsigned char[], const unsigned char[], const unsigned char[], const unsigned char[], const unsigned char[],
-					 const unsigned char[], const unsigned char[]);
+void SSD1306_ShowFrameGif(uint8_t n_frames, ...);
 
 
 /* C++ detection */

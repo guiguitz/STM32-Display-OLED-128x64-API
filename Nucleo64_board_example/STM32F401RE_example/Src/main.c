@@ -105,8 +105,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
-	  SSD1306_Show12FrameGif(horsegif1, horsegif2, horsegif3, horsegif4, horsegif5, horsegif6, horsegif7, horsegif8, horsegif9, horsegif10, horsegif11, horsegif12);
+	  SSD1306_ShowFrameGif(12, horsegif1, horsegif2, horsegif3, horsegif4, horsegif5, horsegif6, horsegif7, horsegif8, horsegif9, horsegif10, horsegif11, horsegif12);
 
 	  /*SSD1306_ShowBitmap(beachsunset);
 	  HAL_Delay(2000);

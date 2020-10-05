@@ -637,58 +637,6 @@ void SSD1306_ShowFrameGif(uint8_t n_frames, ...)
 	va_end(args);
 }
 
-void SSD1306_Show12FrameGif(const unsigned char frame1[], const unsigned char frame2[], const unsigned char frame3[], const unsigned char frame4[], const unsigned char frame5[],
-					 const unsigned char frame6[], const unsigned char frame7[], const unsigned char frame8[], const unsigned char frame9[], const unsigned char frame10[],
-					 const unsigned char frame11[], const unsigned char frame12[])
-{
-	SSD1306_Clear();
-	SSD1306_DrawBitmap(0, 0, frame1, 128, 64, 1);
-	SSD1306_UpdateScreen();
-
-	SSD1306_Clear();
-	SSD1306_DrawBitmap(0, 0, frame2, 128, 64, 1);
-	SSD1306_UpdateScreen();
-
-	SSD1306_Clear();
-	SSD1306_DrawBitmap(0, 0, frame3, 128, 64, 1);
-	SSD1306_UpdateScreen();
-
-	SSD1306_Clear();
-	SSD1306_DrawBitmap(0, 0, frame4, 128, 64, 1);
-	SSD1306_UpdateScreen();
-
-	SSD1306_Clear();
-	SSD1306_DrawBitmap(0, 0, frame5, 128, 64, 1);
-	SSD1306_UpdateScreen();
-
-	SSD1306_Clear();
-	SSD1306_DrawBitmap(0, 0, frame6, 128, 64, 1);
-	SSD1306_UpdateScreen();
-
-	SSD1306_Clear();
-	SSD1306_DrawBitmap(0, 0, frame7, 128, 64, 1);
-	SSD1306_UpdateScreen();
-
-	SSD1306_Clear();
-	SSD1306_DrawBitmap(0, 0, frame8, 128, 64, 1);
-	SSD1306_UpdateScreen();
-
-	SSD1306_Clear();
-	SSD1306_DrawBitmap(0, 0, frame9, 128, 64, 1);
-	SSD1306_UpdateScreen();
-
-	SSD1306_Clear();
-	SSD1306_DrawBitmap(0, 0, frame10, 128, 64, 1);
-	SSD1306_UpdateScreen();
-
-	SSD1306_Clear();
-	SSD1306_DrawBitmap(0, 0, frame11, 128, 64, 1);
-	SSD1306_UpdateScreen();
-
-	SSD1306_Clear();
-	SSD1306_DrawBitmap(0, 0, frame12, 128, 64, 1);
-	SSD1306_UpdateScreen();
-}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  _____ ___   _____ 
