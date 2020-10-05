@@ -51,6 +51,7 @@ SDA        |PB7          |Serial data line
 
 #include "stdlib.h"
 #include "string.h"
+#include <stdarg.h>
 
 
 /* I2C address */

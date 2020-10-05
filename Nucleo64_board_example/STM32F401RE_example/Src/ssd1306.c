@@ -624,6 +624,19 @@ void SSD1306_ShowBitmap(const unsigned char bitmap[])
 	SSD1306_UpdateScreen();
 }
 
+void SSD1306_ShowFrameGif(uint8_t n_frames, ...)
+{
+	va_list args;
+	va_start(args, n_frames);
+
+	for (int i = 0; i < n_frames; i++) {
+		SSD1306_Clear();
+		SSD1306_DrawBitmap(0, 0, va_arg(args, const unsigned char*), 128, 64, 1);
+		SSD1306_UpdateScreen();
+	}
+	va_end(args);
+}
+
 void SSD1306_Show12FrameGif(const unsigned char frame1[], const unsigned char frame2[], const unsigned char frame3[], const unsigned char frame4[], const unsigned char frame5[],
 					 const unsigned char frame6[], const unsigned char frame7[], const unsigned char frame8[], const unsigned char frame9[], const unsigned char frame10[],
 					 const unsigned char frame11[], const unsigned char frame12[])
