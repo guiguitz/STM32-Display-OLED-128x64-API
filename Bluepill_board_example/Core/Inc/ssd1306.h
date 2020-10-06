@@ -305,8 +305,6 @@ void SSD1306_ShowBitmap(const unsigned char[]);
 
 void SSD1306_ShowGif(uint8_t n_frames, ...);
 
-void SSD1306_ShowDateHour();
-
 void SSD1306_Counter(uint8_t);
 
 /* C++ detection */

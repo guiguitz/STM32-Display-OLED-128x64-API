@@ -51,44 +51,44 @@ static SSD1306_t SSD1306;
 #define SSD1306_LEFT_HORIZONTAL_SCROLL               0x27
 #define SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL 0x29
 #define SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL  0x2A
-#define SSD1306_DEACTIVATE_SCROLL                    0x2E // Stop scroll
-#define SSD1306_ACTIVATE_SCROLL                      0x2F // Start scroll
-#define SSD1306_SET_VERTICAL_SCROLL_AREA             0xA3 // Set scroll range
+#define SSD1306_DEACTIVATE_SCROLL                    0x2E  // Stop scroll
+#define SSD1306_ACTIVATE_SCROLL                      0x2F  // Start scroll
+#define SSD1306_SET_VERTICAL_SCROLL_AREA             0xA3  // Set scroll range
 
-#define SSD1306_NORMALDISPLAY       0xA6
-#define SSD1306_INVERTDISPLAY       0xA7
+#define SSD1306_NORMALDISPLAY     					 0xA6
+#define SSD1306_INVERTDISPLAY       				 0xA7
 
 
 void SSD1306_ScrollRight(uint8_t start_row, uint8_t end_row)
 {
   SSD1306_WRITECOMMAND (SSD1306_RIGHT_HORIZONTAL_SCROLL);  // send 0x26
-  SSD1306_WRITECOMMAND (0x00);  // send dummy
-  SSD1306_WRITECOMMAND(start_row);  // start page address
-  SSD1306_WRITECOMMAND(0X00);  // time interval 5 frames
-  SSD1306_WRITECOMMAND(end_row);  // end page address
+  SSD1306_WRITECOMMAND (0x00);  						   // send dummy
+  SSD1306_WRITECOMMAND(start_row);  					   // start page address
+  SSD1306_WRITECOMMAND(0X00);  							   // time interval 5 frames
+  SSD1306_WRITECOMMAND(end_row);  						   // end page address
   SSD1306_WRITECOMMAND(0X00);
   SSD1306_WRITECOMMAND(0XFF);
-  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL); // start scroll
+  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL); 		   // start scroll
 }
 
 
 void SSD1306_ScrollLeft(uint8_t start_row, uint8_t end_row)
 {
-  SSD1306_WRITECOMMAND (SSD1306_LEFT_HORIZONTAL_SCROLL);  // send 0x26
-  SSD1306_WRITECOMMAND (0x00);  // send dummy
-  SSD1306_WRITECOMMAND(start_row);  // start page address
-  SSD1306_WRITECOMMAND(0X00);  // time interval 5 frames
-  SSD1306_WRITECOMMAND(end_row);  // end page address
+  SSD1306_WRITECOMMAND (SSD1306_LEFT_HORIZONTAL_SCROLL);   // send 0x26
+  SSD1306_WRITECOMMAND (0x00);  						   // send dummy
+  SSD1306_WRITECOMMAND(start_row);  					   // start page address
+  SSD1306_WRITECOMMAND(0X00);  							   // time interval 5 frames
+  SSD1306_WRITECOMMAND(end_row);  						   // end page address
   SSD1306_WRITECOMMAND(0X00);
   SSD1306_WRITECOMMAND(0XFF);
-  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL); // start scroll
+  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL); 		   // start scroll
 }
 
 
 void SSD1306_Scrolldiagright(uint8_t start_row, uint8_t end_row)
 {
   SSD1306_WRITECOMMAND(SSD1306_SET_VERTICAL_SCROLL_AREA);  // sect the area
-  SSD1306_WRITECOMMAND (0x00);   // write dummy
+  SSD1306_WRITECOMMAND (0x00);                             // write dummy
   SSD1306_WRITECOMMAND(SSD1306_HEIGHT);
 
   SSD1306_WRITECOMMAND(SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL);
@@ -104,7 +104,7 @@ void SSD1306_Scrolldiagright(uint8_t start_row, uint8_t end_row)
 void SSD1306_Scrolldiagleft(uint8_t start_row, uint8_t end_row)
 {
   SSD1306_WRITECOMMAND(SSD1306_SET_VERTICAL_SCROLL_AREA);  // sect the area
-  SSD1306_WRITECOMMAND (0x00);   // write dummy
+  SSD1306_WRITECOMMAND (0x00);                             // write dummy
   SSD1306_WRITECOMMAND(SSD1306_HEIGHT);
 
   SSD1306_WRITECOMMAND(SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL);
@@ -614,7 +614,7 @@ void SSD1306_OFF(void) {
 void SSD1306_ShowBitmap(const unsigned char bitmap[])
 {
 	SSD1306_Clear();
-	//SSD1306_DrawBitmap(0, 0, bitmap, 128, 64, 1);
+	SSD1306_DrawBitmap(0, 0, bitmap, 128, 64, 1);
 	SSD1306_UpdateScreen();
 }
 
@@ -637,6 +637,8 @@ void SSD1306_Counter(uint8_t seconds)
 {
 	uint8_t currentTime = 0;
 	char currentTimeString[10];
+
+	SSD1306_Clear();
 
 	while(currentTime <= seconds)
 	{
