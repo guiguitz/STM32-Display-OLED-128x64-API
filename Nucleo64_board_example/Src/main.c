@@ -25,6 +25,7 @@
 #include "gifs.h"
 #include "ssd1306.h"
 #include "fonts.h"
+#include "bitmaps.h"
 
 /* USER CODE END Includes */
 
@@ -97,14 +98,43 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   SSD1306_Init();
-  SSD1306_Counter(10);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  SSD1306_ShowGif(12, horsegif1, horsegif2, horsegif3, horsegif4, horsegif5, horsegif6, horsegif7, horsegif8, horsegif9, horsegif10, horsegif11, horsegif12);
+	SSD1306_Clear();
+	SSD1306_GotoXY (0,0);
+	SSD1306_Puts ("GIF", &Font_11x18, 1);
+	SSD1306_GotoXY (10, 30);
+	SSD1306_Puts ("API!", &Font_11x18, 1);
+	SSD1306_UpdateScreen();
+	HAL_Delay(2000);
+	SSD1306_ShowGif(12, horsegif1, horsegif2, horsegif3, horsegif4, horsegif5, horsegif6, horsegif7, horsegif8, horsegif9, horsegif10, horsegif11, horsegif12);
+	SSD1306_ShowGif(12, horsegif1, horsegif2, horsegif3, horsegif4, horsegif5, horsegif6, horsegif7, horsegif8, horsegif9, horsegif10, horsegif11, horsegif12);
+	SSD1306_ShowGif(12, horsegif1, horsegif2, horsegif3, horsegif4, horsegif5, horsegif6, horsegif7, horsegif8, horsegif9, horsegif10, horsegif11, horsegif12);
+	SSD1306_ShowGif(12, horsegif1, horsegif2, horsegif3, horsegif4, horsegif5, horsegif6, horsegif7, horsegif8, horsegif9, horsegif10, horsegif11, horsegif12);
+	SSD1306_ShowGif(12, horsegif1, horsegif2, horsegif3, horsegif4, horsegif5, horsegif6, horsegif7, horsegif8, horsegif9, horsegif10, horsegif11, horsegif12);
+
+	SSD1306_GotoXY (0,0);
+	SSD1306_Puts ("Counter", &Font_11x18, 1);
+	SSD1306_GotoXY (10, 30);
+	SSD1306_Puts ("API!", &Font_11x18, 1);
+	SSD1306_UpdateScreen();
+	HAL_Delay(2000);
+	SSD1306_Counter(5);
+
+	SSD1306_Clear();
+	SSD1306_GotoXY (0,0);
+	SSD1306_Puts ("Show BMP", &Font_11x18, 1);
+	SSD1306_GotoXY (10, 30);
+	SSD1306_Puts ("API!", &Font_11x18, 1);
+	SSD1306_UpdateScreen();
+	HAL_Delay(2000);
+	SSD1306_ShowBitmap(beach);
+	HAL_Delay(4000);
 
     /* USER CODE END WHILE */
 
