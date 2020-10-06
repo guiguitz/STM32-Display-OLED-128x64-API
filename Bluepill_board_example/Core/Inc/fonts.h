@@ -20,7 +20,7 @@
 	- fonts.c
 	- fonts.h
 
-	Hardware and software requirements: STM32f10x
+	Hardware and software requirements: STM32fxxx
 
     Note1: This API was developed as a work in the discipline of Embedded
     Systems Programming at UFMG - Prof. Ricardo de Oliveira Duarte -
@@ -40,7 +40,8 @@
 	1) Select your i2c struct pointer in ssd1306.c (extern I2C_HandleTypeDef hi2c1)
 	2) Copy ssd1306.h and fonts.h to your Inc project folder
 	3) Copy ssd1306.c and fonts.c to your Src project folder
-	2) Include ssd1306.h where this API will be used
+	4) Include ssd1306.h where this API will be used
+	5) include your HAL lib project in ssd1306.h and fonts.h
 
    ----------------------------------------------------------------------
 */
@@ -65,6 +66,7 @@ extern C {
  *  - 16 x 26 pixels
  */
 
+/* stm32fxxx_hal.h */
 #include "stm32f1xx_hal.h"
 #include "string.h"
 

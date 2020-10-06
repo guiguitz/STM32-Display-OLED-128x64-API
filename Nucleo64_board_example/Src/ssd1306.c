@@ -1,25 +1,51 @@
 /**
- * original author:  Tilen Majerle<tilen@majerle.eu>
- * modification for STM32f10x: Alexander Lutsai<s.lyra@ya.ru>
-
    ----------------------------------------------------------------------
-   	Copyright (C) Alexander Lutsai, 2016
-    Copyright (C) Tilen Majerle, 2015
+    Copyright (C) Guilherme Amorim, <guilherme.vini65@gmail.com>, 2020
+    Copyright (C) Renan Guedes, <rbguedes1998@gmail.com>, 2020
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+    API: ssd1306
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	University: UFMG
+
+	Version: 1
+
+	Files:
+	- ssd1306.c
+	- ssd1306.h
+	- fonts.c
+	- fonts.h
+
+	Hardware and software requirements: STM32fxxx
+
+    Note1: This API was developed as a work in the discipline of Embedded
+    Systems Programming at UFMG - Prof. Ricardo de Oliveira Duarte -
+    Department of Electronic Engineering
+
+    Note2: This API is an Update to <github.com/SL-RU/stm32libs> API
+
+	Default pinout:
+
+    SSD1306    |STM32F10x    |DESCRIPTION
+	VCC        |3.3V         |
+	GND        |GND          |
+	SCL        |PB6|PB8      |Serial clock line
+	SDA        |PB7|PB9      |Serial data line
+
+	Configuration:
+	1) Select your i2c struct pointer in ssd1306.c (extern I2C_HandleTypeDef hi2c1)
+	2) Copy ssd1306.h and fonts.h to your Inc project folder
+	3) Copy ssd1306.c and fonts.c to your Src project folder
+	4) Include ssd1306.h where this API will be used
+	5) include your HAL lib project in ssd1306.h and fonts.h
+
    ----------------------------------------------------------------------
- */
+*/
+
 #include "ssd1306.h"
 #include "time.h"
 #include "stdio.h"
@@ -51,44 +77,44 @@ static SSD1306_t SSD1306;
 #define SSD1306_LEFT_HORIZONTAL_SCROLL               0x27
 #define SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL 0x29
 #define SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL  0x2A
-#define SSD1306_DEACTIVATE_SCROLL                    0x2E // Stop scroll
-#define SSD1306_ACTIVATE_SCROLL                      0x2F // Start scroll
-#define SSD1306_SET_VERTICAL_SCROLL_AREA             0xA3 // Set scroll range
+#define SSD1306_DEACTIVATE_SCROLL                    0x2E  // Stop scroll
+#define SSD1306_ACTIVATE_SCROLL                      0x2F  // Start scroll
+#define SSD1306_SET_VERTICAL_SCROLL_AREA             0xA3  // Set scroll range
 
-#define SSD1306_NORMALDISPLAY       0xA6
-#define SSD1306_INVERTDISPLAY       0xA7
+#define SSD1306_NORMALDISPLAY     					 0xA6
+#define SSD1306_INVERTDISPLAY       				 0xA7
 
 
 void SSD1306_ScrollRight(uint8_t start_row, uint8_t end_row)
 {
   SSD1306_WRITECOMMAND (SSD1306_RIGHT_HORIZONTAL_SCROLL);  // send 0x26
-  SSD1306_WRITECOMMAND (0x00);  // send dummy
-  SSD1306_WRITECOMMAND(start_row);  // start page address
-  SSD1306_WRITECOMMAND(0X00);  // time interval 5 frames
-  SSD1306_WRITECOMMAND(end_row);  // end page address
+  SSD1306_WRITECOMMAND (0x00);  						   // send dummy
+  SSD1306_WRITECOMMAND(start_row);  					   // start page address
+  SSD1306_WRITECOMMAND(0X00);  							   // time interval 5 frames
+  SSD1306_WRITECOMMAND(end_row);  						   // end page address
   SSD1306_WRITECOMMAND(0X00);
   SSD1306_WRITECOMMAND(0XFF);
-  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL); // start scroll
+  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL); 		   // start scroll
 }
 
 
 void SSD1306_ScrollLeft(uint8_t start_row, uint8_t end_row)
 {
-  SSD1306_WRITECOMMAND (SSD1306_LEFT_HORIZONTAL_SCROLL);  // send 0x26
-  SSD1306_WRITECOMMAND (0x00);  // send dummy
-  SSD1306_WRITECOMMAND(start_row);  // start page address
-  SSD1306_WRITECOMMAND(0X00);  // time interval 5 frames
-  SSD1306_WRITECOMMAND(end_row);  // end page address
+  SSD1306_WRITECOMMAND (SSD1306_LEFT_HORIZONTAL_SCROLL);   // send 0x26
+  SSD1306_WRITECOMMAND (0x00);  						   // send dummy
+  SSD1306_WRITECOMMAND(start_row);  					   // start page address
+  SSD1306_WRITECOMMAND(0X00);  							   // time interval 5 frames
+  SSD1306_WRITECOMMAND(end_row);  						   // end page address
   SSD1306_WRITECOMMAND(0X00);
   SSD1306_WRITECOMMAND(0XFF);
-  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL); // start scroll
+  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL); 		   // start scroll
 }
 
 
 void SSD1306_Scrolldiagright(uint8_t start_row, uint8_t end_row)
 {
   SSD1306_WRITECOMMAND(SSD1306_SET_VERTICAL_SCROLL_AREA);  // sect the area
-  SSD1306_WRITECOMMAND (0x00);   // write dummy
+  SSD1306_WRITECOMMAND (0x00);                             // write dummy
   SSD1306_WRITECOMMAND(SSD1306_HEIGHT);
 
   SSD1306_WRITECOMMAND(SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL);
@@ -104,7 +130,7 @@ void SSD1306_Scrolldiagright(uint8_t start_row, uint8_t end_row)
 void SSD1306_Scrolldiagleft(uint8_t start_row, uint8_t end_row)
 {
   SSD1306_WRITECOMMAND(SSD1306_SET_VERTICAL_SCROLL_AREA);  // sect the area
-  SSD1306_WRITECOMMAND (0x00);   // write dummy
+  SSD1306_WRITECOMMAND (0x00);                             // write dummy
   SSD1306_WRITECOMMAND(SSD1306_HEIGHT);
 
   SSD1306_WRITECOMMAND(SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL);
@@ -132,7 +158,6 @@ void SSD1306_InvertDisplay (int i)
 
 }
 
-
 void SSD1306_DrawBitmap(int16_t x, int16_t y, const unsigned char* bitmap, int16_t w, int16_t h, uint16_t color)
 {
 
@@ -155,13 +180,6 @@ void SSD1306_DrawBitmap(int16_t x, int16_t y, const unsigned char* bitmap, int16
         }
     }
 }
-
-
-
-
-
-
-
 
 uint8_t SSD1306_Init(void) {
 
@@ -334,7 +352,6 @@ char SSD1306_Puts(char* str, FontDef_t* Font, SSD1306_COLOR_t color) {
 	/* Everything OK, zero should be returned */
 	return *str;
 }
- 
 
 void SSD1306_DrawLine(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, SSD1306_COLOR_t c) {
 	int16_t dx, dy, sx, sy, err, e2, i, tmp; 
@@ -479,7 +496,6 @@ void SSD1306_DrawTriangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, ui
 	SSD1306_DrawLine(x3, y3, x1, y1, color);
 }
 
-
 void SSD1306_DrawFilledTriangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t x3, uint16_t y3, SSD1306_COLOR_t color) {
 	int16_t deltax = 0, deltay = 0, x = 0, y = 0, xinc1 = 0, xinc2 = 0, 
 	yinc1 = 0, yinc2 = 0, den = 0, num = 0, numadd = 0, numpixels = 0, 
@@ -600,19 +616,19 @@ void SSD1306_DrawFilledCircle(int16_t x0, int16_t y0, int16_t r, SSD1306_COLOR_t
         SSD1306_DrawLine(x0 + y, y0 - x, x0 - y, y0 - x, c);
     }
 }
- 
-
 
 void SSD1306_Clear (void)
 {
 	SSD1306_Fill (0);
     SSD1306_UpdateScreen();
 }
+
 void SSD1306_ON(void) {
 	SSD1306_WRITECOMMAND(0x8D);  
 	SSD1306_WRITECOMMAND(0x14);  
 	SSD1306_WRITECOMMAND(0xAF);  
 }
+
 void SSD1306_OFF(void) {
 	SSD1306_WRITECOMMAND(0x8D);  
 	SSD1306_WRITECOMMAND(0x10);
@@ -631,18 +647,22 @@ void SSD1306_ShowGif(uint8_t n_frames, ...)
 	va_list args;
 	va_start(args, n_frames);
 
+	SSD1306_Clear();
+
 	for (int i = 0; i < n_frames; i++) {
-		SSD1306_Clear();
 		SSD1306_DrawBitmap(0, 0, va_arg(args, const unsigned char*), 128, 64, 1);
 		SSD1306_UpdateScreen();
+		SSD1306_Clear();
 	}
 	va_end(args);
 }
 
 void SSD1306_Counter(uint8_t seconds)
 {
-	int currentTime = 0;
+	uint8_t currentTime = 0;
 	char currentTimeString[10];
+
+	SSD1306_Clear();
 
 	while(currentTime <= seconds)
 	{
@@ -663,40 +683,25 @@ void SSD1306_Counter(uint8_t seconds)
 	SSD1306_GotoXY(64, 16);
 	SSD1306_Puts(currentTimeString, &Font_11x18, 1);
 	SSD1306_UpdateScreen();
-	HAL_Delay(1000);
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  _____ ___   _____ 
-// |_   _|__ \ / ____|
-//   | |    ) | |     
-//   | |   / /| |     
-//  _| |_ / /_| |____ 
-// |_____|____|\_____|
-//
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/* I2C Functions */
 
 void ssd1306_I2C_Init() {
-	//MX_I2C1_Init();
 	uint32_t p = 250000;
 	while(p>0)
 		p--;
-	//HAL_I2C_DeInit(&hi2c1);
-	//p = 250000;
-	//while(p>0)
-	//	p--;
-	//MX_I2C1_Init();
 }
 
 void ssd1306_I2C_WriteMulti(uint8_t address, uint8_t reg, uint8_t* data, uint16_t count) {
-uint8_t dt[256];
-dt[0] = reg;
-uint8_t i;
-for(i = 0; i < count; i++)
-dt[i+1] = data[i];
-HAL_I2C_Master_Transmit(&hi2c1, address, dt, count+1, 10);
+	uint8_t dt[256];
+	dt[0] = reg;
+	uint8_t i;
+	for(i = 0; i < count; i++)
+	dt[i+1] = data[i];
+	HAL_I2C_Master_Transmit(&hi2c1, address, dt, count+1, 10);
 }
-
 
 void ssd1306_I2C_Write(uint8_t address, uint8_t reg, uint8_t data) {
 	uint8_t dt[2];
