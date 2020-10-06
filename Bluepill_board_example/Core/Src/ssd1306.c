@@ -1,25 +1,50 @@
 /**
- * original author:  Tilen Majerle<tilen@majerle.eu>
- * modification for STM32f10x: Alexander Lutsai<s.lyra@ya.ru>
-
    ----------------------------------------------------------------------
-   	Copyright (C) Alexander Lutsai, 2016
-    Copyright (C) Tilen Majerle, 2015
+    Copyright (C) Guilherme Amorim, <guilherme.vini65@gmail.com>, 2020
+    Copyright (C) Renan Guedes, <rbguedes1998@gmail.com>, 2020
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+    API: ssd1306
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	University: UFMG
+
+	Version: 1
+
+	Files:
+	- ssd1306.c
+	- ssd1306.h
+	- fonts.c
+	- fonts.h
+
+	Hardware and software requirements: STM32f10x
+
+    Note1: This API was developed as a work in the discipline of Embedded
+    Systems Programming at UFMG - Prof. Ricardo de Oliveira Duarte -
+    Department of Electronic Engineering
+
+    Note2: This API is an Update to <github.com/SL-RU/stm32libs> API
+
+	Default pinout:
+
+    SSD1306    |STM32F10x    |DESCRIPTION
+	VCC        |3.3V         |
+	GND        |GND          |
+	SCL        |PB6|PB8      |Serial clock line
+	SDA        |PB7|PB9      |Serial data line
+
+	Configuration:
+	1) Select your i2c struct pointer in ssd1306.c (extern I2C_HandleTypeDef hi2c1)
+	2) Copy ssd1306.h and fonts.h to your Inc project folder
+	3) Copy ssd1306.c and fonts.c to your Src project folder
+	2) Include ssd1306.h where this API will be used
+
    ----------------------------------------------------------------------
- */
+*/
+
 #include "ssd1306.h"
 #include "time.h"
 #include "stdio.h"
@@ -326,7 +351,6 @@ char SSD1306_Puts(char* str, FontDef_t* Font, SSD1306_COLOR_t color) {
 	/* Everything OK, zero should be returned */
 	return *str;
 }
- 
 
 void SSD1306_DrawLine(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, SSD1306_COLOR_t c) {
 	int16_t dx, dy, sx, sy, err, e2, i, tmp; 
@@ -470,7 +494,6 @@ void SSD1306_DrawTriangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, ui
 	SSD1306_DrawLine(x2, y2, x3, y3, color);
 	SSD1306_DrawLine(x3, y3, x1, y1, color);
 }
-
 
 void SSD1306_DrawFilledTriangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t x3, uint16_t y3, SSD1306_COLOR_t color) {
 	int16_t deltax = 0, deltay = 0, x = 0, y = 0, xinc1 = 0, xinc2 = 0, 
@@ -659,7 +682,6 @@ void SSD1306_Counter(uint8_t seconds)
 	SSD1306_GotoXY(64, 16);
 	SSD1306_Puts(currentTimeString, &Font_11x18, 1);
 	SSD1306_UpdateScreen();
-	HAL_Delay(1000);
 }
 
 
