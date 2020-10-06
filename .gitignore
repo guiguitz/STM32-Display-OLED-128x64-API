@@ -1,1 +1,5 @@
-*.xml
+**/Debug
+**/.settings
+.DS_Store
+.mxproject
+.osx.project
