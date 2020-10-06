@@ -639,45 +639,6 @@ void SSD1306_ShowGif(uint8_t n_frames, ...)
 	va_end(args);
 }
 
-void SSD1306_ShowDateHour()
-{
-	RTC_HandleTypeDef hrtc;
-	RTC_TimeTypeDef currentTime;
-	RTC_DateTypeDef currentDate;
-	struct tm currTime;
-
-	HAL_RTC_GetTime(&hrtc, &currentTime, RTC_FORMAT_BIN);
-	HAL_RTC_GetDate(&hrtc, &currentDate, RTC_FORMAT_BIN);
-
-	currTime.tm_year = currentDate.Year + 2020;  // In fact: 2000 + 18 - 1900
-	currTime.tm_mday = currentDate.Date + 5;
-	currTime.tm_mon  = currentDate.Month + 4;
-
-	currTime.tm_hour = currentTime.Hours;
-	currTime.tm_min  = currentTime.Minutes;
-	currTime.tm_sec  = currentTime.Seconds;
-
-	char day[10000];
-	snprintf(day, sizeof(day), "%d", currTime.tm_mday);
-	char month[10000];
-	snprintf(month, sizeof(month), "%d", currTime.tm_mon);
-	char year[10000];
-	snprintf(year, sizeof(year), "%d", currTime.tm_year);
-
-	SSD1306_Clear();
-	SSD1306_GotoXY(0, 0);
-	SSD1306_Puts("Data: ", &Font_11x18, 1);
-	SSD1306_GotoXY(50, 0);
-	SSD1306_Puts(day, &Font_11x18, 1);
-	SSD1306_GotoXY(60, 0);
-	SSD1306_Puts(month, &Font_11x18, 1);
-	SSD1306_GotoXY(70, 0);
-	SSD1306_Puts(year, &Font_11x18, 1);
-	SSD1306_GotoXY(0, 30);
-	SSD1306_Puts("Hora: ", &Font_11x18, 1);
-	SSD1306_UpdateScreen();
-}
-
 void SSD1306_Counter(uint8_t seconds)
 {
 	int currentTime = 0;
