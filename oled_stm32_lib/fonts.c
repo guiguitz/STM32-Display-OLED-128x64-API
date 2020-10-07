@@ -30,11 +30,11 @@
 
 	Default pinout:
 
-    SSD1306    |STM32F10x    |DESCRIPTION
-	VCC        |3.3V         |
+    SSD1306    |STM32Fxxx    |DESCRIPTION
+	VCC        |3.3V - 5V    |
 	GND        |GND          |
-	SCL        |PB6|PB8      |Serial clock line
-	SDA        |PB7|PB9      |Serial data line
+	SCL        |PB6 - PB8    |Serial clock line
+	SDA        |PB7 - PB9    |Serial data line
 
 	Configuration:
 	1) Select your i2c struct pointer in ssd1306.c (extern I2C_HandleTypeDef hi2c1)
