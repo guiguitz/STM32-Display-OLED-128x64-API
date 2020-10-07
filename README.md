@@ -34,7 +34,8 @@ __obs:__ You can acces these files in oled_stm32_lib dir.
 	5. include your HAL project lib in ssd1306.h and fonts.h
   
 ## New Features
-.
+* void SSD1306_ShowBitmap(const unsigned char bitmap[])
+	This function is responsible for displaying a 128x64 bitmap on the oled screen. In order to do so, it has a const unsigned char[] parameter representing all the bits' 		values for creating the correct image on the display. It is recomemnded following the steps given by the YouTube channel Controllers Tech in the video 				https://www.youtube.com/watch?v=M5ddTjrcvEs, so the image selected is converted correctly to a 128x64 size and in a .bmp file. Instead of creating differente .h files 		for differente bitmaps, you may create a unique .h file with all the bitmaps you want.
 .
 .
 
