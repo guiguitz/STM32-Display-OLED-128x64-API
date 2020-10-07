@@ -55,7 +55,7 @@ extern C {
 #endif
 
 /* stm32fxxx_hal.h */
-#include "stm32f4xx_hal.h"
+#include "stm32f1xx_hal.h"
 
 #include "fonts.h"
 
@@ -322,6 +322,32 @@ void SSD1306_ShowGif(uint8_t n_frames, ...);
  * @retval None
  */
 void SSD1306_Counter(uint8_t seconds);
+
+/**
+ * @brief  Sends formatted output to display
+ * @note   It's similar to int printf(const char *format, ...) in C
+ * @note   https://www.tutorialspoint.com/c_standard_library/c_function_printf.htm
+ * @note   The user can print a maximum of 11 characters.
+ * @note   The user can print a maximum of 3 lines. In the fourth line, this function will clean the scream to print it.
+ * @retval None
+ *
+ * @param  format:
+ * 		This is the string that contains the text to be written to stdout.
+ *      It can optionally contain embedded format tags that are replaced by the values specified
+ * 	    in subsequent additional arguments and formatted as requested.
+ *		Format tags prototype is %[flags][width][.precision][length]specifier
+ *
+ * @example
+ *
+ * 	for (uint8_t i = 0; i < 10; i++)
+ *	{
+ *		SSD1306_Println("var1 = %i", i);
+ *		SSD1306_Println("var2 = %d", i*3);
+ *		SSD1306_Println("var3 = %i", i*4);
+ *		HAL_Delay(1000);
+ *	}
+ */
+void SSD1306_Println(char* format, ...);
 
 /* I2C Functions */
 

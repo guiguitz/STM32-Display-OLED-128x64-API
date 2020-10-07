@@ -128,6 +128,24 @@ int main(void)
 
 	SSD1306_Clear();
 	SSD1306_GotoXY (0,0);
+	SSD1306_Puts ("printf", &Font_11x18, 1);
+	SSD1306_GotoXY (10, 30);
+	SSD1306_Puts ("API!", &Font_11x18, 1);
+	SSD1306_UpdateScreen();
+	HAL_Delay(2000);
+	SSD1306_Clear();
+	for (uint8_t i = 0; i < 5; i++)
+	{
+		SSD1306_Println("var1 = %i", i);
+		HAL_Delay(1000);
+		SSD1306_Println("var2 = %d", i*3);
+		HAL_Delay(1000);
+		SSD1306_Println("var3 = %i", i*4);
+		HAL_Delay(1000);
+	}
+
+	SSD1306_Clear();
+	SSD1306_GotoXY (0,0);
 	SSD1306_Puts ("Show BMP", &Font_11x18, 1);
 	SSD1306_GotoXY (10, 30);
 	SSD1306_Puts ("API!", &Font_11x18, 1);
@@ -135,8 +153,7 @@ int main(void)
 	HAL_Delay(2000);
 	SSD1306_ShowBitmap(beach);
 	HAL_Delay(4000);
-
-    /* USER CODE END WHILE */
+	/* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }

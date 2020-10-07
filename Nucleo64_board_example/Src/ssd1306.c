@@ -71,6 +71,7 @@ typedef struct {
 
 /* Private variable */
 static SSD1306_t SSD1306;
+static uint8_t actualYPosition = 0;
 
 
 #define SSD1306_RIGHT_HORIZONTAL_SCROLL              0x26
@@ -685,6 +686,28 @@ void SSD1306_Counter(uint8_t seconds)
 	SSD1306_UpdateScreen();
 }
 
+void SSD1306_Println(char* format, ...)
+{
+	char buffer[20];
+	buffer[0] = '\0';
+
+	va_list argList;
+	va_start(argList, format);
+	vsprintf(buffer, format, argList);
+
+	va_end(argList);
+
+	if (actualYPosition > 40)
+	{
+		SSD1306_Clear();
+		actualYPosition = 0;
+	}
+	SSD1306_GotoXY(0, actualYPosition);
+	SSD1306_Puts (buffer, &Font_11x18, 1);
+	actualYPosition += 20;
+
+	SSD1306_UpdateScreen();
+}
 
 /* I2C Functions */
 
