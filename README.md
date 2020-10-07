@@ -5,7 +5,7 @@ This API was developed as a work in the discipline of Embedded Systems Programmi
 
 Library is developed and tested with Stm32F401RE (Nucleo 64 board) and Stm32f103c8t6 (Bluepill board). You can check the examples given.
 
-This API is an Update to [SL-RU/stm32libs](github.com/SL-RU/stm32libs) API.
+This API is an Update to [SL-RU/stm32libs](https://github.com/SL-RU/stm32libs) API.
 
 ## Hardware and Software requirements
 STM32fxxx
