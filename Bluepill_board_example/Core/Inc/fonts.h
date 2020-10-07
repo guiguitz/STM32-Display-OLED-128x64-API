@@ -37,9 +37,10 @@
 	SDA        |PB7 - PB9    |Serial data line
 
 	Configuration:
-	1) Select your i2c struct pointer in ssd1306.c (extern I2C_HandleTypeDef hi2c1)
-	2) Copy ssd1306.h and fonts.h to your Inc project folder
-	3) Copy ssd1306.c and fonts.c to your Src project folder
+
+	1) Copy ssd1306.h and fonts.h to your Inc project folder
+	2) Copy ssd1306.c and fonts.c to your Src project folder
+	3) Select your i2c struct pointer in ssd1306.c (extern I2C_HandleTypeDef hi2c1)
 	4) Include ssd1306.h where this API will be used
 	5) include your HAL lib project in ssd1306.h and fonts.h
 
