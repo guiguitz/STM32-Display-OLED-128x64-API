@@ -34,14 +34,52 @@ __obs:__ You can acces these files in oled_stm32_lib dir.
 	5. include your HAL project lib in ssd1306.h and fonts.h
   
 ## New Features
-* void SSD1306_ShowBitmap(const unsigned char bitmap[]):
-	This function is responsible for displaying a 128x64 bitmap on the oled screen. In order to do so, it has a const unsigned char[] parameter representing all the bits' 		values for creating the correct image on the display. It is recomemnded following the steps given by the YouTube channel Controllers Tech in the video 				https://www.youtube.com/watch?v=M5ddTjrcvEs, so the image selected is converted correctly to a 128x64 size and in a .bmp file. Instead of creating different .h files 		for differente bitmaps, you may create a unique .h file with all the bitmaps you want.
-* void SSD1306_ShowGif(uint8_t n_frames, ...):
-	Similarly to the previous function, this function is responsible for displaying a sequence of 128x64 frames on the oled screen. By showing a sequence of 			frames in a high frequency, it gives us the impression of an animation playing on the screen. The function has a fixed parameter so the function is able to know the 		total number of frames of the animation. The others parameters are the bitmaps representing each frame of the entire animation. It is also recommended following the 		steps given by the YouTube channel Controllers Tech in the video https://www.youtube.com/watch?v=M5ddTjrcvEs for creating the animation .h file and converting correctly 	 the frames to the 128x64 size and .bmp file.
-* void SSD1306_Counter(uint8_t seconds):
-	This is a very simple function which works as a cronometer or a counter, displaying the current second on the 128x64 oled screen. When it reaches the time limit, guven 	by the function's parameter, the counter stops and keeps showing the time limit.
-* void SSD1306_Println(char* format, ...):
-	This function works as a printf function for the 128x64 oled display, so it takes a char string as parameter and a variable number of others parameters that may be 		variables of the program that you might want to use. With this function, there is no need of using a function for displaying a char string and another function for 		displaying the program's variables.
+
+#### void SSD1306_ShowBitmap(const unsigned char bitmap[]):
+This function is responsible for displaying a 128x64 bitmap on the OLED display. In order to do so, it has a `const unsigned char[]` parameter, which is a pointer to your bitmap image.
+
+To convert your image file to a .bmp 128x84 file you can follow the steps given by the YouTube channel [Controllers Tech](https://www.youtube.com/channel/UCkdqtSMnhYuMsJkyHOxiPZQ) in their [video](https://www.youtube.com/watch?v=M5ddTjrcvEs). 
+
+Instead of creating different .h files for differente bitmaps, you may create a unique .h file with all the bitmaps you want.
+
+![Show bmp feature](https://github.com/guiguitz/STM32-Display-OLED-128x64-API/blob/main/github_images/show_bmp.jpg)
+
+#### void SSD1306_ShowGif(uint8_t n_frames, ...):
+Similarly to the previous function, this function is responsible for displaying a sequence of 128x64 frames on the OLED display. By showing a sequence of 			frames in a high frequency, it gives us the impression of an animation playing on the screen.
+
+The function has a fixed parameter `uint8_t n_frames` to informe the number of frames used. The others parameters should be pointers to bitmaps representing each frame of the entire animation.
+
+It is also recommended following the steps given by the the YouTube channel [Controllers Tech](https://www.youtube.com/channel/UCkdqtSMnhYuMsJkyHOxiPZQ) in their [video](https://www.youtube.com/watch?v=M5ddTjrcvEs) for creating the animation .h file and converting correctly frames to 128x64 .bmp file.
+
+__Example:__
+```C
+SSD1306_ShowGif(12, horsegif1, horsegif2, horsegif3, horsegif4, horsegif5, horsegif6, horsegif7, horsegif8, horsegif9, horsegif10, horsegif11, horsegif12);
+SSD1306_ShowGif(12, horsegif1, horsegif2, horsegif3, horsegif4, horsegif5, horsegif6, horsegif7, horsegif8, horsegif9, horsegif10, horsegif11, horsegif12);
+SSD1306_ShowGif(12, horsegif1, horsegif2, horsegif3, horsegif4, horsegif5, horsegif6, horsegif7, horsegif8, horsegif9, horsegif10, horsegif11, horsegif12);
+```
+
+#### void SSD1306_Counter(uint8_t seconds):
+This is a very simple function which works as a cronometer or a counter, displaying the current second on the 128x64 OLED display. When it reaches the time limit, given 	by the function's parameter, the counter stops and keeps showing the time limit.
+
+#### void SSD1306_Println(char* format, ...):
+This function works as a println function for the 128x64 OLED display. 
+
+It takes a string that contains the text to be written and, optionally, contain embedded format tags that are replaced by the values specified in subsequent additional arguments and formatted as requested. Format tags prototype is %[flags][width][.precision][length] specifier. Click on this link to have a complete printf reference: [Link](https://www.tutorialspoint.com/c_standard_library/c_function_printf.htm)
+
+The user can use it as a debug system to print program variables in a easy way.
+
+__Example:__
+```C
+for (uint8_t i = 0; i < 10; i++)
+{
+    SSD1306_Println("var1 = %i", i);
+    SSD1306_Println("var2 = %d", i*3);
+    SSD1306_Println("var3 = %i", i*4);
+    HAL_Delay(1000);
+}
+```
+
+![println feature](https://github.com/guiguitz/STM32-Display-OLED-128x64-API/blob/main/github_images/println.jpg)
 
 ## All Features
 * uint8_t SSD1306_Init(void);
