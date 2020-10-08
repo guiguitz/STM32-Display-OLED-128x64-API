@@ -59,7 +59,7 @@ SSD1306_ShowGif(12, horsegif1, horsegif2, horsegif3, horsegif4, horsegif5, horse
 ```
 
 #### void SSD1306_Counter(uint8_t seconds):
-This is a very simple function which works as a cronometer or a counter, displaying the current second on the 128x64 OLED display. When it reaches the time limit, given 	by the function's parameter, the counter stops and keeps showing the time limit.
+This is a very simple function which works as a cronometer or a counter, displaying the current second on the 128x64 OLED display. When it reaches the time limit, given 	by the function's parameter, the counter stops.
 
 #### void SSD1306_Println(char* format, ...):
 This function works as a println function for the 128x64 OLED display. 
