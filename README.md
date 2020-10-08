@@ -64,7 +64,7 @@ This is a very simple function which works as a cronometer or a counter, display
 #### void SSD1306_Println(char* format, ...):
 This function works as a println function for the 128x64 OLED display. 
 
-It takes a string that contains the text to be written and, optionally, contain embedded format tags that are replaced by the values specified in subsequent additional arguments and formatted as requested. Format tags prototype is %[flags][width][.precision][length] specifier. Click on this link to have a complete printf reference: [Link](https://www.tutorialspoint.com/c_standard_library/c_function_printf.htm)
+It takes a string that contains the text to be written and, optionally, contain embedded format tags that are replaced by the values specified in subsequent additional arguments and formatted as requested. Format tags prototype is `%[flags][width][.precision][length]` specifier. Click on this link to have a complete printf reference: [Link](https://www.tutorialspoint.com/c_standard_library/c_function_printf.htm)
 
 The user can use it as a debug system to print program variables in a easy way.
 
