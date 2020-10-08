@@ -27,11 +27,12 @@ SDA | PB7-PB9 |Serial data line
 __obs:__ You can acces these files in oled_stm32_lib dir.
 
 ## API Configuration
-	1. Copy ssd1306.h and fonts.h to your Inc project folder
-	2. Copy ssd1306.c and fonts.c to your Src project folder
-	3. Select your i2c struct pointer in ssd1306.c (extern I2C_HandleTypeDef hi2c1)
-	4. Include ssd1306.h where this API will be used
-	5. include your HAL project lib in ssd1306.h and fonts.h
+	1. Download ssd1306.c, ssd1306.h, fonts.c, and fonts.h in oled_stm32_lib folder;
+	2. Copy ssd1306.h and fonts.h to your Inc project folder;
+	3. Copy ssd1306.c and fonts.c to your Src project folder;
+	4. Select your i2c struct pointer in ssd1306.c (extern I2C_HandleTypeDef hi2c1);
+	5. Include ssd1306.h where this API will be used;
+	6. include your HAL project lib in ssd1306.h and fonts.h.
   
 ## New Features
 
