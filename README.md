@@ -34,9 +34,14 @@ __obs:__ You can acces these files in oled_stm32_lib dir.
 	5. include your HAL project lib in ssd1306.h and fonts.h
   
 ## New Features
-.
-.
-.
+* void SSD1306_ShowBitmap(const unsigned char bitmap[]):
+	This function is responsible for displaying a 128x64 bitmap on the oled screen. In order to do so, it has a const unsigned char[] parameter representing all the bits' 		values for creating the correct image on the display. It is recomemnded following the steps given by the YouTube channel Controllers Tech in the video 				https://www.youtube.com/watch?v=M5ddTjrcvEs, so the image selected is converted correctly to a 128x64 size and in a .bmp file. Instead of creating different .h files 		for differente bitmaps, you may create a unique .h file with all the bitmaps you want.
+* void SSD1306_ShowGif(uint8_t n_frames, ...):
+	Similarly to the previous function, this function is responsible for displaying a sequence of 128x64 frames on the oled screen. By showing a sequence of 			frames in a high frequency, it gives us the impression of an animation playing on the screen. The function has a fixed parameter so the function is able to know the 		total number of frames of the animation. The others parameters are the bitmaps representing each frame of the entire animation. It is also recommended following the 		steps given by the YouTube channel Controllers Tech in the video https://www.youtube.com/watch?v=M5ddTjrcvEs for creating the animation .h file and converting correctly 	 the frames to the 128x64 size and .bmp file.
+* void SSD1306_Counter(uint8_t seconds):
+	This is a very simple function which works as a cronometer or a counter, displaying the current second on the 128x64 oled screen. When it reaches the time limit, guven 	by the function's parameter, the counter stops and keeps showing the time limit.
+* void SSD1306_Println(char* format, ...):
+	This function works as a printf function for the 128x64 oled display, so it takes a char string as parameter and a variable number of others parameters that may be 		variables of the program that you might want to use. With this function, there is no need of using a function for displaying a char string and another function for 		displaying the program's variables.
 
 ## All Features
 * uint8_t SSD1306_Init(void);
